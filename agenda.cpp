@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <conio.h>
+#include <string.h>
+
 
 struct contato { 
 char nome[50]; 
@@ -8,7 +11,7 @@ char num[15];
 
 }; 
 void grava(void);
-
+void pesquisar (void);
 
 int main (void){
 	int op;
@@ -25,7 +28,16 @@ int main (void){
 		case 1:
 			grava();
 			break;
-		
+			
+		case 2:
+			pesquisar();
+			break;
+			
+		case 4:
+			system("cls");
+			printf("Saindo...");
+			break;
+			
 		default:
 			system("cls");
 			printf("\n\topcao invalida!!!");
@@ -39,14 +51,37 @@ int main (void){
 }
 
 void grava (void){
+	system("cls");
 	FILE *file;
-	file = fopen ("C:\\Users\\guilherme.oechsler\\Desktop\\contatos.txt","a");
+	file = fopen ("C:\\Users\\Pichau\\OneDrive\\Área de Trabalho\\Programas\\contatos.txt","a");
 	struct contato p; 
 printf("Digite o nome: "); 
-scanf("%s", &p.nome); 
+gets(p.nome); 
 printf("Digite o numero: "); 
-scanf("%s", &p.num); 
-fprintf(file,"(%s - %s)\n",p.nome,p.num); 
+gets(p.num); 
+fprintf(file,"%s     %s\n",p.nome,p.num); 
 fclose(file);
- 
+}
+
+void pesquisar (void){
+	system("cls");
+	struct contato p; 
+	FILE *file;
+	file = fopen("C:\\Users\\Pichau\\OneDrive\\Área de Trabalho\\Programas\\contatos.txt", "r");
+	
+	char pesquisaNome[50];
+    printf("Digite o nome para pesquisar: ");
+    gets(pesquisaNome);
+    fflush(stdin);
+    
+    while (fscanf(file, "%s %s\n", p.nome, p.num) != EOF) {
+        if (strcmp(pesquisaNome, p.nome) == 0) {
+            printf("\nContato encontrado:");
+            printf("%s    %s", p.nome, p.num);
+            getch();
+            fclose(file);
+            return;
+        }
+    } 
+	fclose(file);
 }
